@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Web3 from 'web3'
 import logo from '../logo.png';
-//import './App.css';
+import './App.css';
 import Marketplace from '../abis/Marketplace.json'
 import Navbar from './Navbar'
 import Main from './Main'
-import App from './App'
+import Meatshop from './Meatshop';
 import {BrowserRouter as Router , Routes } from "react-router-dom";
+import App from './App';
+
+
 
 class Farmerp extends Component {
 
@@ -18,7 +21,7 @@ class Farmerp extends Component {
   async loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
-      await window.eth_requestAccounts
+      await window.ethereum.enable()
     }
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
@@ -66,11 +69,12 @@ class Farmerp extends Component {
     this.purchaseProduct = this.purchaseProduct.bind(this)
   }
 
-  createProduct(farmname,farmlocation,dateOflastVac, price) {
-
+  createProduct(name, price,lastvaccain,farmname,meatshopname,farmlocation,phone) {
     this.setState({ loading: true })
-    this.state.marketplace.methods.createProduct(farmname,farmlocation,dateOflastVac, price).send({ from: this.state.account })
-    .once('receipt', (receipt) => {this.setState({ loading: false })})
+    this.state.marketplace.methods.createProduct(name, price,lastvaccain,farmname,meatshopname,farmlocation,phone).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+    })
   }
 
   purchaseProduct(id, price) {
@@ -87,23 +91,21 @@ class Farmerp extends Component {
         <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">
-
             <main role="main" className="col-lg-12 d-flex">
               { this.state.loading
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
                 : <Main
                   products={this.state.products}
                   createProduct={this.createProduct}
-                  purchaseProduct={this.purchaseProduct}
-                  />
+                  purchaseProduct={this.purchaseProduct} />
               }
             </main>
           </div>
         </div>
-
       </div>
     );
   }
+
 }
 
 export default Farmerp;
