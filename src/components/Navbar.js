@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link } from "react-router-dom";
 class Navbar extends Component {
 
   render() {
@@ -11,13 +11,18 @@ class Navbar extends Component {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Dapp University's Blockchain Marketplace
+          Vmeat
         </a>
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-            <small className="text-white"><span id="account">{this.props.account}</span></small>
+                 <ul>
+                   <Link to="/">    Home     </Link>
+                 </ul>
+
           </li>
         </ul>
+
+
       </nav>
     );
   }
