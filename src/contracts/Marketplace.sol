@@ -2,21 +2,31 @@ pragma solidity ^0.5.0;
 
 contract Marketplace {
     string public name;
-    uint public productCount = 0;
-    mapping(uint => Product) public products;
 
     struct Product {
         uint id;
         string name;
         uint price;
+        string lastvaccain;
+        string farmname;
+        string meatshopname;
+        string farmlocation;
+        uint phone;
         address payable owner;
         bool purchased;
     }
+     uint public productCount ;
+    mapping(uint => Product) public products;
 
     event ProductCreated(
         uint id,
         string name,
         uint price,
+        string lastvaccain,
+        string farmname,
+        string meatshopname,
+        string farmlocation,
+        uint phone,
         address payable owner,
         bool purchased
     );
@@ -25,25 +35,37 @@ contract Marketplace {
         uint id,
         string name,
         uint price,
+        string lastvaccain,
+        string farmname,
+        string meatshopname,
+        string farmlocation,
+        uint phone,
         address payable owner,
         bool purchased
     );
 
     constructor() public {
-        name = "Dapp University Marketplace";
+        name = "Vmeat";
     }
 
-    function createProduct(string memory _name, uint _price) public {
+    function createProduct(string memory _name, uint _price,string memory lastvaccain1, string memory _farm_name ,
+     string memory meatshop_name, string memory farm_location,  uint phone) public {
         // Require a valid name
         require(bytes(_name).length > 0);
         // Require a valid price
         require(_price > 0);
         // Increment product count
+        require(bytes(lastvaccain1).length > 0);
+        require(bytes(_farm_name).length > 0);
+        require(bytes(meatshop_name).length > 0);
+        require(bytes(farm_location).length > 0);
+                require(phone > 0);
+
         productCount ++;
         // Create the product
-        products[productCount] = Product(productCount, _name, _price, msg.sender, false);
+        products[productCount] = Product(productCount, _name, _price  , lastvaccain1 ,_farm_name ,meatshop_name,farm_location,phone, msg.sender, false);
         // Trigger an event
-        emit ProductCreated(productCount, _name, _price, msg.sender, false);
+        emit ProductCreated(productCount, _name, _price,lastvaccain1,_farm_name ,meatshop_name,farm_location,phone, msg.sender, false);
     }
 
     function purchaseProduct(uint _id) public payable {
@@ -68,6 +90,6 @@ contract Marketplace {
         // Pay the seller by sending them Ether
         address(_seller).transfer(msg.value);
         // Trigger an event
-        emit ProductPurchased(productCount, _product.name, _product.price, msg.sender, true);
+        emit ProductPurchased(productCount, _product.name, _product.price,_product.lastvaccain,_product.farmname,_product.meatshopname, _product.farmlocation ,_product.phone, msg.sender, true);
     }
 }
