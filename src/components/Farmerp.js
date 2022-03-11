@@ -84,7 +84,7 @@ class Farmerp extends Component {
       this.setState({ loading: false })
     })
   }
-
+//we
   render() {
     return (
       <div>
