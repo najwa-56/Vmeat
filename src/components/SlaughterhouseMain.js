@@ -7,10 +7,10 @@ class SlaughterhouseMain extends Component {
       <div id="content">
         <form onSubmit={(event) => {
           event.preventDefault()
-          
+
           const AccessTime = this.AccessTime.value
           const Timetogoout = this.Timetogoout.value
-         
+
           this.props.createProduct2(AccessTime,Timetogoout)
         }}>
           <div className="form-group mr-sm-2">
@@ -34,8 +34,8 @@ class SlaughterhouseMain extends Component {
 
           <button type="submit" className="btn btn-primary">Add Product</button>
         </form>
-          
-        
+
+
         <p>&nbsp;</p>
         <h2>Buy Product</h2>
         <table className="table">
@@ -63,12 +63,12 @@ class SlaughterhouseMain extends Component {
                       <td>{product2.AccessTime}</td>
                   <td>{product2.Timetogoout}</td>
                   </tr>)})}
-           
+
 
 
           </tbody>
         </table>
-        
+
       </div>
     );
   }
