@@ -1,22 +1,47 @@
 import React, { Component } from 'react';
-import Slaughterhouse from './Slaughterhouse'
-import Marketplace from '../abis/Marketplace.json'
-import Web3 from 'web3'
 
 class SlaughterhouseMain extends Component {
 
   render() {
     return (
+      <div id="content">
+        <form onSubmit={(event) => {
+          event.preventDefault()
+          
+          const AccessTime = this.AccessTime.value
+          const Timetogoout = this.Timetogoout.value
+         
+          this.props.createProduct2(AccessTime,Timetogoout)
+        }}>
+          <div className="form-group mr-sm-2">
+            <input
+              id="AccessTime"
+              type="text"
+              ref={(input) => { this.AccessTime = input }}
+              className="form-control"
+              placeholder="AccessTime"
+              required />
+          </div>
+          <div className="form-group mr-sm-2">
+            <input
+              id="Timetogoout"
+              type="text"
+              ref={(input) => { this.Timetogoout = input }}
+              className="form-control"
+              placeholder="Timetogoout"
+              required />
+          </div>
 
-        <div id="content">
-
-
+          <button type="submit" className="btn btn-primary">Add Product</button>
+        </form>
+          
+        
         <p>&nbsp;</p>
-        <h2>list of livestock</h2>
+        <h2>Buy Product</h2>
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">ID</th>
+            <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
               <th scope="col">date Of lastVac</th>
@@ -24,56 +49,26 @@ class SlaughterhouseMain extends Component {
               <th scope="col">meatshop name</th>
               <th scope="col">farm location</th>
               <th scope="col">Farmer phone</th>
+              <th scope="col">AccessTime</th>
+              <th scope="col">Timetogoout</th>
               <th scope="col">Owner</th>
               <th scope="col"></th>
             </tr>
           </thead>
-
-
           <tbody id="productList">
-            {
-
-             //product.purchased && product.owner == product.owner
-              this.props.products.map((product, key) => {
-              if (product.purchased  ){
-
-                  return(
-                      <tr key={key}>
-                        <th scope="row">{product.id.toString()}</th>
-                        <td>{product.name}</td>
-                        <td>{window.web3.utils.fromWei(product.price.toString(), 'Ether')} Eth</td>
-                        <td>{product.lastvaccain}</td>
-                        <td>{product.farmname}</td>
-                        <td>{product.meatshopname}</td>
-                        <td>{product.farmlocation}</td>
-                        <td>{product.phon}</td>
-                        <td>{product.owner}</td>
-
-                        <td> 
-                            { product.purchased
-                      ? <button
-                          name={product.id}
-                          value={product.price}
-                          onClick={(event) => {
-                            this.props.purchaseProduct(event.target.name, event.target.value)
-                          }}
-                        >
-                          Edit
-                        </button>
-                      : null
-                    }
-                        </td>
-                        </tr>
-                    )}else{return(null)}
+            { this.props.products2.map((product2, key) => {
+                   return(
+                    <tr key={key}>
+                      <th scope="row">{product2.id.toString()}</th>
+                      <td>{product2.AccessTime}</td>
+                  <td>{product2.Timetogoout}</td>
+                  </tr>)})}
+           
 
 
-            })
-
-
-
-          }
           </tbody>
         </table>
+        
       </div>
     );
   }
