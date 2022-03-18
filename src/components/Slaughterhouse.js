@@ -48,15 +48,15 @@ class Slaughterhouse extends Component {
         const product1 = await marketplace1.methods.products2(i).call()
         this.setState({
           products2: [...this.state.products2, product1]
-        
+
         })
-       
+
       }
       this.setState({ loading: false})
     } else {
       window.alert('Marketplace contract not deployed to detected network.')
     }
-  
+
   }
 
   constructor(props) {
@@ -64,14 +64,14 @@ class Slaughterhouse extends Component {
     this.state = {
       account: '',
       productCount: 0,
-      
+
       products2: [],
-      
-     
+
+
       loading: true
     }
     this.createProduct2=this.createProduct2.bind(this)
-   
+
   }
   createProduct2(AccessTime,Timetogoout){
     this.setState({ loading: true })
@@ -89,26 +89,26 @@ class Slaughterhouse extends Component {
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex">
-             
+
               { this.state.loading
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
-                : <SlaughterhouseMain 
-                
+                : <SlaughterhouseMain
+
                   products2={this.state.products2}
-                 
+
                   createProduct2={this.createProduct2}
 
-                  /> 
-               
+                  />
+
               }
             </main>
-            
+
           </div>
         </div>
       </div>
     );
   }
-  
+
 }
 
 export default Slaughterhouse;
