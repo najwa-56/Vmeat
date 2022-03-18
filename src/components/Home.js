@@ -18,6 +18,9 @@ class Home extends Component {
            <li>
            <Link to="/Meatshop">Meatshop</Link>
            </li>
+           <li>
+           <Link to="/slaughterhouse">slaughterhouse</Link>
+           </li>
          </ul>
     </div>
     );
